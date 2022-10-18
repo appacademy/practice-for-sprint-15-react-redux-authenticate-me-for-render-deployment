@@ -1,8 +1,9 @@
-# Authenticate Me - Deploying your Express + React app to Render
+# Authenticate Me - Deploying your Express + React Project to Render
 
-Before you begin deploying, **make sure to remove any `console.log`'s or
-`debugger`'s in any production code**. You can search your entire project folder
-if you are using them anywhere.
+Before you begin deploying, **make sure to remove any `console.log`s or
+`debugger`s in any production code**. You can search your entire project folder
+to see if you are using them anywhere by clicking on the magnifying glass icon 
+on the top left sidebar of VSCode.
 
 You will set up Render to run on a production, not development, version of your
 application. When a Node.js application like yours is deployed through Render,
