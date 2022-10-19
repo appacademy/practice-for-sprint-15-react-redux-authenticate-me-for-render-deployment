@@ -2,7 +2,7 @@
 
 Before you begin deploying, **make sure to remove any `console.log`s or
 `debugger`s in any production code**. You can search your entire project folder
-to see if you are using them anywhere by clicking on the magnifying glass icon 
+to see if you are using them anywhere by clicking on the magnifying glass icon
 on the top left sidebar of VSCode.
 
 You will set up Render to run on a production, not development, version of your
@@ -100,7 +100,7 @@ The root `package.json`'s scripts should look like this:
 
 ```json
   "scripts": {
-    "heroku-postbuild": "npm run build --prefix frontend",
+    "render-postbuild": "npm run build --prefix frontend",
     "install": "npm --prefix backend install backend && npm --prefix frontend install frontend",
     "dev:backend": "npm install --prefix backend start",
     "dev:frontend": "npm install --prefix frontend start",
@@ -111,7 +111,7 @@ The root `package.json`'s scripts should look like this:
 ```
 
 The `dev:backend` and `dev:frontend` scripts are optional and will not be used
-for Heroku.
+for Render.
 
 
 
@@ -161,7 +161,7 @@ npm run sequelize --prefix backend db:migrate &&
 npm run sequelize --prefix backend db:seed:all
 ```
 
-Click "Edit", and replace this with the following build command, which now includes the `heroku-postbuild` script to build the frontend:
+Click "Edit", and replace this with the following build command, which now includes the `render-postbuild` script to build the frontend:
 
 ```shell
 # NEW Build Script
