@@ -106,15 +106,13 @@ The root `package.json`'s scripts should look like this:
     "dev:frontend": "npm install --prefix frontend start",
     "sequelize": "npm run --prefix backend sequelize",
     "sequelize-cli": "npm run --prefix backend sequelize-cli",
-    "start": "npm start --prefix backend"
+    "start": "npm start --prefix backend",
+    "build": "npm run build --prefix backend"
   },
 ```
 
 The `dev:backend` and `dev:frontend` scripts are optional and will not be used
 for Render.
-
-
-
 
 <!-- Not using CSP in helmet anymore -->
 <!-- There's just one more thing to edit. For the `build` script in the
