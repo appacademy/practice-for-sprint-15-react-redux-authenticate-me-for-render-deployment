@@ -122,10 +122,10 @@ by adding the `<i>` element with the desired `className` to be
 rendered in a React component. To change the size or color of the icon, wrap
 the `<i>` element in a parent element like a `div`. Manipulating the `font-size`
 of the parent element changes the size of the icon. The color of the parent
-element will be the color of the icon. For example, to render a big orange
-[carrot icon]:
+element will be the color of the icon. For example, to render a big
+orange [carrot icon]:
 
-```jsx
+```js
 const Carrot = () => {
   return (
     <div style={{ color: "orange", fontSize: "100px" }}>
