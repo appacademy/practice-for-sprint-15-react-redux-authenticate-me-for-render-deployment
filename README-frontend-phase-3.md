@@ -125,11 +125,13 @@ element will be the color of the icon. For example, to render a big orange
 [carrot icon]:
 
 ```js
-const Carrot = () => (
-  <div style={{ color: "orange", fontSize: "100px" }}>
-    <i className="fas fa-carrot"></i>
-  </div>
-);
+const Carrot = () => {
+  return (
+    <div style={{ color: "orange", fontSize: "100px" }}>
+      <i className="fas fa-carrot"></i>
+    </div>
+  );
+};
 ```
 
 [Choose an icon][Choose a Font Awesome Icon] that will represent the user
