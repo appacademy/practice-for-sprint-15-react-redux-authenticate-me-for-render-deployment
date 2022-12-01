@@ -33,6 +33,8 @@ The `previous state` in the console should look like this:
       id: "<new id>",
       updatedAt: "<Some date time format>",
       username: "<new password>",
+      firstName: "<new first name>",
+      lastName: "<new last name>",
     }
   }
 }
@@ -244,7 +246,8 @@ export default App;
 ## `ProfileButton` component
 
 Change the `ProfileButton` component to show a user profile icon as a button and
-a list containing the session user's username and email and logout button. Move
+a list containing the session user's username, full name (by putting the user's
+firstName and lastName next to each other), and email and logout button. Move
 the logout button logic from the `Navigation` component to the `ProfileButton`
 component. Remember, the logout button should dispatch the logout action when
 clicked. The `ProfileButton` component should look something like this:
@@ -272,6 +275,7 @@ function ProfileButton({ user }) {
       </button>
       <ul className="profile-dropdown">
         <li>{user.username}</li>
+        <li>{user.firstName} {user.lastName}</li>
         <li>{user.email}</li>
         <li>
           <button onClick={logout}>Log Out</button>
@@ -422,6 +426,7 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName}>
         <li>{user.username}</li>
+        <li>{user.firstName} {user.lastName}</li>
         <li>{user.email}</li>
         <li>
           <button onClick={logout}>Log Out</button>
@@ -436,7 +441,7 @@ export default ProfileButton;
 
 Test this out by navigating to [http://localhost:3000]. If you click the profile
 button, the menu list with the logout button should appear with the session
-user's username and email. When you click the logout button, the profile button
+user's username, full name, and email. When you click the logout button, the profile button
 and menu list should disappear. If you try logging in again and clicking the
 profile button, there is currently no way to close the menu list once it's open
 unless you logout. Let's work on this next, but first, make sure that you have
@@ -482,6 +487,7 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName}>
         <li>{user.username}</li>
+        <li>{user.firstName} {user.lastName}</li>
         <li>{user.email}</li>
         <li>
           <button onClick={logout}>Log Out</button>
@@ -617,6 +623,7 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <li>{user.username}</li>
+        <li>{user.firstName} {user.lastName}</li>
         <li>{user.email}</li>
         <li>
           <button onClick={logout}>Log Out</button>
@@ -687,6 +694,7 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <li>{user.username}</li>
+        <li>{user.firstName} {user.lastName}</li>
         <li>{user.email}</li>
         <li>
           <button onClick={logout}>Log Out</button>

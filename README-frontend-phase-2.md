@@ -10,7 +10,7 @@ own before looking below for help!**
 You will use the `POST /api/users` backend route to signup a user.
 
 In the session store file, add a signup thunk action that will hit the signup
-backend route with `username`, `email`, and `password` inputs. After the
+backend route with `username`, `firstName`, `lastName`, `email`, and `password` inputs. After the
 response from the AJAX call comes back, parse the JSON body of the response, and
 dispatch the action for setting the session user to the user in the response's
 body.
@@ -23,7 +23,7 @@ Test the signup thunk action.
 
 Navigate to [http://localhost:3000]. If there is a `token` cookie, remove it and
 refresh. In the browser's dev tools console, try dispatching the signup thunk
-action with a new `username`, a new `email`, and a `password`.
+action with a new `username`, new `firstName`, `lastName`, `email`, and `password`.
 
 The `previous state` in the console should look like this:
 
@@ -46,6 +46,8 @@ The `next state` in the console should look something like this:
       id: "<new id>",
       updatedAt: "<Some date time format>",
       username: "<new password>",
+      firstName: "<new first name>",
+      lastName: "<new last name>",
     }
   }
 }
@@ -68,11 +70,13 @@ Here's an example for the signup thunk action:
 // frontend/src/store/session.js
 // ...
 export const signup = (user) => async (dispatch) => {
-  const { username, email, password } = user;
+  const { username, firstName, lastName, email, password } = user;
   const response = await csrfFetch("/api/users", {
     method: "POST",
     body: JSON.stringify({
       username,
+      firstName,
+      lastName,
       email,
       password,
     }),
@@ -90,6 +94,8 @@ console:
 ```js
 window.store.dispatch(window.sessionActions.signup({
   username: 'NewUser',
+  firstName: 'New',
+  lastName: 'User',
   email: 'new@user.io',
   password: 'password'
 }));
@@ -103,7 +109,7 @@ are next.
 Create a folder in the `components` directory for your signup page components.
 Add an `index.js` and create a functional component named `SignupFormPage`.
 
-Render a form with controlled inputs for the new user's username, email, and
+Render a form with controlled inputs for the new user's username, firstName, lastName, email, and
 password, and confirm password fields.
 
 On submit of the form, validate that the confirm password is the same as the
@@ -148,6 +154,8 @@ function SignupFormPage() {
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
@@ -158,7 +166,7 @@ function SignupFormPage() {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, password }))
+      return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
@@ -187,6 +195,24 @@ function SignupFormPage() {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        First Name
+        <input
+          type="text"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Last Name
+        <input
+          type="text"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
           required
         />
       </label>

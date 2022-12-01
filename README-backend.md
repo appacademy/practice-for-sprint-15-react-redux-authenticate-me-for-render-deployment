@@ -30,7 +30,7 @@ following JSON body **in this exact format**:
     "firstName": "John",
     "lastName": "Smith",
     "email": "john.smith@gmail.com",
-    "username": "JohnSmith"
+    "username": "JohnSmith",
   }
 }
 ```

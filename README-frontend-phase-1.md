@@ -23,6 +23,8 @@ current session user:
     id,
     email,
     username,
+    firstName,
+    lastName,
     createdAt,
     updatedAt
   }
@@ -107,10 +109,12 @@ The `next state` in the console should look something like this:
   session: {
     user: {
       createdAt: "<Some date time format>",
-      email: "demo@appacademy.io",
+      email: "demo@user.io",
       id: 1,
       updatedAt: "<Some date time format>",
       username: "Demo-lition",
+      firstName: "Demo",
+      lastName: "Lition",
     }
   }
 }
@@ -383,10 +387,12 @@ The `next state` in the console should look something like this:
   session: {
     user: {
       createdAt: "<Some date time format>",
-      email: "demo@appacademy.io",
+      email: "demo@user.io",
       id: 1,
       updatedAt: "<Some date time format>",
       username: "Demo-lition",
+      firstName: "Demo",
+      lastName: "Lition",
     }
   }
 }
