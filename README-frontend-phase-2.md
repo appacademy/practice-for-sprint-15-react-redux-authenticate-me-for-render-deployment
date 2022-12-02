@@ -109,8 +109,8 @@ are next.
 Create a folder in the `components` directory for your signup page components.
 Add an `index.js` and create a functional component named `SignupFormPage`.
 
-Render a form with controlled inputs for the new user's username, firstName, lastName, email, and
-password, and confirm password fields.
+Render a form with controlled inputs for the new user's username, firstName,
+lastName, email, and password, and confirm password fields.
 
 On submit of the form, validate that the confirm password is the same as the
 password fields, then dispatch the signup thunk action with the form input
@@ -130,7 +130,8 @@ redirected to the `"/"` route. Check your code for the `SignupFormPage` and the
 `App` component if this is not the flow that you are experiencing.
 
 Also try signing up with invalid fields to test your handling and displaying of
-error messages.
+error messages. If you are experiencing issues, scroll to check the
+example code below.
 
 **After testing, commit your `SignupFormPage` code!**
 

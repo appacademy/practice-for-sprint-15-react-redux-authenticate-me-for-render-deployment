@@ -153,24 +153,26 @@ a click in the dropdown menu.
 
 **Commit, commit, commit!**
 
-### OPTIONAL: Close dropdown menu when login or signup modals open
+### OPTIONAL: Close dropdown menu when login or signup modals open and on logout
 
 You may have noticed that now, when you click the `"Log In"` or `"Sign Up"`
-button in the dropdown menu, the dropdown menu doesn't close. This may be a
-desired feature for some, but if you do want it to close when either button is
-clicked, then you'll need to do one small thing.
+button in the dropdown menu, the dropdown menu doesn't close. Nor does it close
+when you click `"Logout"`. This may be a desired feature for some, but if you do
+want it to close when these buttons are clicked, then you'll need to do one
+small thing.
 
 Remember, the dropdown menu can be closed when the `showMenu` component state
 variable in the `ProfileButton` component is set to `false`. So you will want to
 close the dropdown when the `"Log In"` and `"Sign Up"` buttons are clicked.
 
-Remember that the `onButtonClick` prop on the `OpenButtonModal` component is an
+Remember that the `onButtonClick` prop on the `OpenModalButton` component is an
 optional callback function that will be called when the button to trigger the
 modal opening is clicked.
 
 Refactor the `ProfileButton` component by passing in an `onButtonClick` prop
-into both `OpenButtonModal` components as a callback function that will close
-the dropdown menu when invoked.
+into both `OpenModalButton` components as a callback function that will close
+the dropdown menu when invoked. Then for logout, you can use the same callback
+function to close the dropdown menu after the logout `dispatch`. 
 
 Here's an example for how the `ProfileButton` component should look like now:
 
@@ -207,13 +209,15 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  const closeMenu = () => setShowMenu(false);
+
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    closeMenu();
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-  const closeMenu = () => setShowMenu(false);
 
   return (
     <>
@@ -256,8 +260,7 @@ function ProfileButton({ user }) {
 export default ProfileButton;
 ```
 
-Confirm that your application and that the profile dropdown menu closes when
-either the `"Log In"` or `"Sign Up"` buttons are clicked in the dropdown menu.
+Confirm that your application and that the profile dropdown menu closes when the `"Log In"`, `"Sign Up"`, and `"Logout"` buttons are clicked in the dropdown menu.
 
 ### OPTIONAL: `OpenModalMenuItem`
 
@@ -344,13 +347,15 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  const closeMenu = () => setShowMenu(false);
+
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
+    closeMenu();
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-  const closeMenu = () => setShowMenu(false);
 
   return (
     <>
@@ -369,20 +374,16 @@ function ProfileButton({ user }) {
           </>
         ) : (
           <>
-            <li>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-            </li>
-            <li>
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </li>
+            <OpenModalMenuItem
+              itemText="Log In"
+              onItemClick={closeMenu}
+              modalComponent={<LoginFormModal />}
+            />
+            <OpenModalMenuItem
+              itemText="Sign Up"
+              onItemClick={closeMenu}
+              modalComponent={<SignupFormModal />}
+            />
           </>
         )}
       </ul>

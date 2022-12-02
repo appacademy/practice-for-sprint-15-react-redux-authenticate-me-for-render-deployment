@@ -400,7 +400,7 @@ component conditionally to either show or hide the menu based on the `showMenu`
 _state variable_ using CSS. For example, if the `showMenu` state variable is
 `false`, then apply a `className` of "hidden" to the dropdown menu element.
 Otherwise, don't apply that `className`. Add a `.hidden` CSS rule that will
-add a CSS style of `display: hidden` to the dropdown menu element.
+add a CSS style of `display: none` to the dropdown menu element.
 
 ```js
 // frontend/src/components/Navigation/ProfileButton.js

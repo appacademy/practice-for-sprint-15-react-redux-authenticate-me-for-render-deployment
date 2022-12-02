@@ -121,7 +121,8 @@ The `next state` in the console should look something like this:
 ```
 
 If there is an error or if the previous or next state does not look like this,
-then check your logic in your session reducer and your actions.
+then check your logic in your session reducer and your actions. If you are
+still having issues, scroll to check the example code below. 
 
 After you finished testing, **commit your code**.
 
