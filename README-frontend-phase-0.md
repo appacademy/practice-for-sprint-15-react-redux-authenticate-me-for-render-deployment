@@ -397,7 +397,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 To test the custom `csrfFetch` function that attaches the CSRF token to the header,
 navigate to root route of the React application, [http://localhost:3000]. In the
-browser's dev tools console, make a request to `POST /api/session` with the demo
+browser's dev tools console, make a request to `POST /api/test` with the demo
 user credentials using the `window.csrfFetch` function. There is no need to
 specify the headers because the default header for `"Content-Type"`, set to
 `"application/json"`, and the `"XSRF-TOKEN"` header are added by the custom
