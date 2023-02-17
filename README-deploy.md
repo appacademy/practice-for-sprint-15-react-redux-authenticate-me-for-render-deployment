@@ -170,7 +170,9 @@ npm run sequelize --prefix backend db:migrate &&
 npm run sequelize --prefix backend db:seed:all
 ```
 
-Save the changes, and click on the blue "Manual Deploy" button, and choose
+Enter `npm start` in the Start command input. Save the changes. 
+
+Click on the blue "Manual Deploy" button, and choose
 "Clear Build Cache & Deploy". You will be able to see the logs and confirm that
 your re-deployment is successful.
 
