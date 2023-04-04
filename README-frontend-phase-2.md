@@ -92,13 +92,15 @@ Here's an example for the signup thunk action test in the browser's dev tools
 console:
 
 ```js
-window.store.dispatch(window.sessionActions.signup({
-  username: 'NewUser',
-  firstName: 'New',
-  lastName: 'User',
-  email: 'new@user.io',
-  password: 'password'
-}));
+window.store.dispatch(
+  window.sessionActions.signup({
+    username: "NewUser",
+    firstName: "New",
+    lastName: "User",
+    email: "new@user.io",
+    password: "password",
+  })
+);
 ```
 
 ## `SignupFormPage` component
@@ -159,84 +161,101 @@ function SignupFormPage() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
 
   if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        });
+      setErrors({});
+      return dispatch(
+        sessionActions.signup({
+          email,
+          username,
+          firstName,
+          lastName,
+          password,
+        })
+      ).catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
     }
-    return setErrors(['Confirm Password field must be the same as the Password field']);
+    return setErrors({
+      confirmPassword: "Confirm Password field must be the same as the Password field"
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
-      <label>
-        Email
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Username
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        First Name
-        <input
-          type="text"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Last Name
-        <input
-          type="text"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Confirm Password
-        <input
-          type="password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Sign Up</button>
-    </form>
+    <>
+      <h1>Sign Up</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Email
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </label>
+        {errors.email && <p>{errors.email}</p>}
+        <label>
+          Username
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+        </label>
+        {errors.username && <p>{errors.username}</p>}
+        <label>
+          First Name
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+        </label>
+        {errors.firstName && <p>{errors.firstName}</p>}
+        <label>
+          Last Name
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
+        </label>
+        {errors.lastName && <p>{errors.lastName}</p>}
+        <label>
+          Password
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        {errors.password && <p>{errors.password}</p>}
+        <label>
+          Confirm Password
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+        </label>
+        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        <button type="submit">Sign Up</button>
+      </form>
+    </>
   );
 }
 
@@ -261,15 +280,17 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  return isLoaded && (
-    <Switch>
-      <Route path="/login">
-        <LoginFormPage />
-      </Route>
-      <Route path="/signup">
-        <SignupFormPage />
-      </Route>
-    </Switch>
+  return (
+    isLoaded && (
+      <Switch>
+        <Route path="/login">
+          <LoginFormPage />
+        </Route>
+        <Route path="/signup">
+          <SignupFormPage />
+        </Route>
+      </Switch>
+    )
   );
 }
 
@@ -284,7 +305,7 @@ file into the `frontend/src/components/SignupFormPage/index.js` file.
 ```js
 // frontend/src/components/SignupFormPage/index.js
 // ...
-import './SignupForm.css';
+import "./SignupForm.css";
 // ...
 ```
 

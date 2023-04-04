@@ -27,7 +27,7 @@ will be set to the actual HTML DOM element that gets rendered from the `div`.
 
 ```js
 // frontend/src/context/Modal.js
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
 const ModalContext = React.createContext();
 
@@ -36,9 +36,7 @@ export function ModalProvider({ children }) {
 
   return (
     <>
-      <ModalContext.Provider>
-        {children}
-      </ModalContext.Provider>
+      <ModalContext.Provider>{children}</ModalContext.Provider>
       <div ref={modalRef} />
     </>
   );
@@ -51,7 +49,7 @@ as the `value` prop.
 
 ```js
 // frontend/src/context/Modal.js
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
 
 const ModalContext = React.createContext();
 
@@ -76,13 +74,13 @@ export function ModalProvider({ children }) {
 Create `2` component state variables:
 
 1. `modalContent` - The React component to render inside modal
-   * default: `null`
-   * data type: a React component
-   * When this is set to `null` or any falsey value, the modal is closed and
+   - default: `null`
+   - data type: a React component
+   - When this is set to `null` or any falsey value, the modal is closed and
      should not be rendered.
 2. `onModalClose` - A callback function to be called when the modal is closing
-   * default: `null`
-   * data type: `function`
+   - default: `null`
+   - data type: `function`
 
 When the `modalContent` state variable is `null` or any falsey value,
 **that means the modal is closed**. When it is set to a React component or any
@@ -131,7 +129,7 @@ export function ModalProvider({ children }) {
     setModalContent(null); // clear the modal contents
     // If callback function is truthy, call the callback function and reset it
     // to null:
-    if (typeof onModalClose === 'function') {
+    if (typeof onModalClose === "function") {
       setOnModalClose(null);
       onModalClose();
     }
@@ -142,7 +140,7 @@ export function ModalProvider({ children }) {
     modalContent, // React component to render inside modal
     setModalContent, // function to set the React component to render inside modal
     setOnModalClose, // function to set the callback function to be called when modal is closing
-    closeModal // function to close the modal
+    closeModal, // function to close the modal
   };
 
   return (
@@ -214,8 +212,8 @@ Make sure to import `ReactDOM` from the `react-dom` package to be able to use
 the `ReactDOM.createPortal` function in this file.
 
 ```js
-import React, { useRef, useState, useContext } from 'react';
-import ReactDOM from 'react-dom';
+import React, { useRef, useState, useContext } from "react";
+import ReactDOM from "react-dom";
 
 const ModalContext = React.createContext();
 
@@ -229,7 +227,7 @@ export function ModalProvider({ children }) {
     setModalContent(null); // clear the modal contents
     // If callback function is truthy, call the callback function and reset it
     // to null:
-    if (typeof onModalClose === 'function') {
+    if (typeof onModalClose === "function") {
       setOnModalClose(null);
       onModalClose();
     }
@@ -240,7 +238,7 @@ export function ModalProvider({ children }) {
     modalContent, // React component to render inside modal
     setModalContent, // function to set the React component to render inside modal
     setOnModalClose, // function to set the callback function called when modal is closing
-    closeModal // function to close the modal
+    closeModal, // function to close the modal
   };
 
   return (
@@ -263,9 +261,7 @@ export function Modal() {
   return ReactDOM.createPortal(
     <div id="modal">
       <div id="modal-background" onClick={closeModal} />
-      <div id="modal-content">
-        {modalContent}
-      </div>
+      <div id="modal-content">{modalContent}</div>
     </div>,
     modalRef.current
   );
@@ -304,7 +300,7 @@ be centered inside of the `modal` div by flexing the `modal` div and have a
 
 #modal-content {
   position: absolute;
-  background-color:white;
+  background-color: white;
 }
 ```
 
@@ -316,9 +312,9 @@ can be used by React components to easily consume the `ModalContext`.
 Your `Modal.js` file should now look like this:
 
 ```js
-import React, { useRef, useState, useContext } from 'react';
-import ReactDOM from 'react-dom';
-import './Modal.css';
+import React, { useRef, useState, useContext } from "react";
+import ReactDOM from "react-dom";
+import "./Modal.css";
 
 const ModalContext = React.createContext();
 
@@ -332,7 +328,7 @@ export function ModalProvider({ children }) {
     setModalContent(null); // clear the modal contents
     // If callback function is truthy, call the callback function and reset it
     // to null:
-    if (typeof onModalClose === 'function') {
+    if (typeof onModalClose === "function") {
       setOnModalClose(null);
       onModalClose();
     }
@@ -343,7 +339,7 @@ export function ModalProvider({ children }) {
     modalContent, // React component to render inside modal
     setModalContent, // function to set the React component to render inside modal
     setOnModalClose, // function to set the callback function called when modal is closing
-    closeModal // function to close the modal
+    closeModal, // function to close the modal
   };
 
   return (
@@ -366,9 +362,7 @@ export function Modal() {
   return ReactDOM.createPortal(
     <div id="modal">
       <div id="modal-background" onClick={closeModal} />
-      <div id="modal-content">
-        {modalContent}
-      </div>
+      <div id="modal-content">{modalContent}</div>
     </div>,
     modalRef.current
   );
@@ -386,19 +380,19 @@ Your `frontend/src/index.js` should look something like this:
 
 ```js
 // frontend/src/index.js
-import React from 'react';
+import React from "react";
 
-import './index.css';
+import "./index.css";
 
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import { ModalProvider, Modal } from './context/Modal';
-import App from './App';
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
+import { ModalProvider, Modal } from "./context/Modal";
+import App from "./App";
 
-import configureStore from './store';
+import configureStore from "./store";
 import { restoreCSRF, csrfFetch } from "./store/csrf";
-import * as sessionActions from './store/session';
+import * as sessionActions from "./store/session";
 
 const store = configureStore();
 
@@ -430,7 +424,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Root />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 ```
 
@@ -462,36 +456,34 @@ button.
 
 When the button is clicked, it should:
 
-* Invoke `onButtonClick` if `onButtonClick` is a function
-* Invoke `setOnModalClose` with `onModalClose` only if `onModalClose` is a
+- Invoke `onButtonClick` if `onButtonClick` is a function
+- Invoke `setOnModalClose` with `onModalClose` only if `onModalClose` is a
   function
-* Open the modal with the `modalComponent` as the content of the modal by
+- Open the modal with the `modalComponent` as the content of the modal by
   invoking `setModalContent` with `modalComponent`
 
 The `OpenModalButton` component should now look something like this:
 
 ```js
 // frontend/src/components/OpenModalButton/index.js
-import React from 'react';
-import { useModal } from '../../context/Modal';
+import React from "react";
+import { useModal } from "../../context/Modal";
 
 function OpenModalButton({
   modalComponent, // component to render inside the modal
   buttonText, // text of the button that opens the modal
   onButtonClick, // optional: callback function that will be called once the button that opens the modal is clicked
-  onModalClose // optional: callback function that will be called once the modal is closed
+  onModalClose, // optional: callback function that will be called once the modal is closed
 }) {
   const { setModalContent, setOnModalClose } = useModal();
 
   const onClick = () => {
-    if (typeof onButtonClick === 'function') onButtonClick();
-    if (typeof onModalClose === 'function') setOnModalClose(onModalClose);
+    if (typeof onButtonClick === "function") onButtonClick();
+    if (typeof onModalClose === "function") setOnModalClose(onModalClose);
     setModalContent(modalComponent);
   };
 
-  return (
-    <button onClick={onClick}>{buttonText}</button>
-  );
+  return <button onClick={onClick}>{buttonText}</button>;
 }
 
 export default OpenModalButton;
@@ -626,31 +618,26 @@ function LoginFormModal() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
+    setErrors({});
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
-      .catch(
-        async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
         }
-      );
+      });
   };
 
   return (
     <>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
         <label>
           Username or Email
           <input
@@ -669,6 +656,9 @@ function LoginFormModal() {
             required
           />
         </label>
+        {errors.credential && (
+          <p>{errors.credential}</p>
+        )}
         <button type="submit">Log In</button>
       </form>
     </>
@@ -690,16 +680,16 @@ Here's an example for how `Navigation` component should look like now:
 
 ```js
 // frontend/src/components/Navigation/index.js
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
-import OpenModalButton from '../OpenModalButton';
-import LoginFormModal from '../LoginFormModal';
-import './Navigation.css';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ProfileButton from "./ProfileButton";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
+import "./Navigation.css";
 
-function Navigation({ isLoaded }){
-  const sessionUser = useSelector(state => state.session.user);
+function Navigation({ isLoaded }) {
+  const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;
   if (sessionUser) {
@@ -723,7 +713,9 @@ function Navigation({ isLoaded }){
   return (
     <ul>
       <li>
-        <NavLink exact to="/">Home</NavLink>
+        <NavLink exact to="/">
+          Home
+        </NavLink>
       </li>
       {isLoaded && sessionLinks}
     </ul>
@@ -765,10 +757,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        <Switch>
-        </Switch>
-      )}
+      {isLoaded && <Switch></Switch>}
     </>
   );
 }
@@ -784,7 +773,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
-import './SignupForm.css';
+import "./SignupForm.css";
 
 function SignupFormModal() {
   const dispatch = useDispatch();
@@ -794,30 +783,39 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
-      setErrors([]);
-      return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
+      setErrors({});
+      return dispatch(
+        sessionActions.signup({
+          email,
+          username,
+          firstName,
+          lastName,
+          password,
+        })
+      )
         .then(closeModal)
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+          if (data && data.errors) {
+            setErrors(data.errors);
+          }
         });
     }
-    return setErrors(['Confirm Password field must be the same as the Password field']);
+    return setErrors({
+      confirmPassword: "Confirm Password field must be the same as the Password field"
+    });
   };
 
   return (
     <>
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-        </ul>
         <label>
           Email
           <input
@@ -827,6 +825,7 @@ function SignupFormModal() {
             required
           />
         </label>
+        {errors.email && <p>{errors.email}</p>}
         <label>
           Username
           <input
@@ -836,6 +835,7 @@ function SignupFormModal() {
             required
           />
         </label>
+        {errors.username && <p>{errors.username}</p>}
         <label>
           First Name
           <input
@@ -845,6 +845,7 @@ function SignupFormModal() {
             required
           />
         </label>
+        {errors.firstName && <p>{errors.firstName}</p>}
         <label>
           Last Name
           <input
@@ -854,6 +855,7 @@ function SignupFormModal() {
             required
           />
         </label>
+        {errors.lastName && <p>{errors.lastName}</p>}
         <label>
           Password
           <input
@@ -863,6 +865,7 @@ function SignupFormModal() {
             required
           />
         </label>
+        {errors.password && <p>{errors.password}</p>}
         <label>
           Confirm Password
           <input
@@ -872,6 +875,9 @@ function SignupFormModal() {
             required
           />
         </label>
+        {errors.confirmPassword && (
+          <p>{errors.confirmPassword}</p>
+        )}
         <button type="submit">Sign Up</button>
       </form>
     </>
@@ -884,17 +890,17 @@ export default SignupFormModal;
 Here's an example for how the `Navigation` component should look like now:
 
 ```js
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
-import OpenModalButton from '../OpenModalButton';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
-import './Navigation.css';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import ProfileButton from "./ProfileButton";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
+import "./Navigation.css";
 
-function Navigation({ isLoaded }){
-  const sessionUser = useSelector(state => state.session.user);
+function Navigation({ isLoaded }) {
+  const sessionUser = useSelector((state) => state.session.user);
 
   let sessionLinks;
   if (sessionUser) {
@@ -921,7 +927,9 @@ function Navigation({ isLoaded }){
   return (
     <ul>
       <li>
-        <NavLink exact to="/">Home</NavLink>
+        <NavLink exact to="/">
+          Home
+        </NavLink>
       </li>
       {isLoaded && sessionLinks}
     </ul>

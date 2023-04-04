@@ -75,11 +75,11 @@ at the key of `sessionActions`:
 ```js
 // frontend/src/index.js
 // ... other imports
-import * as sessionActions from './store/session';
+import * as sessionActions from "./store/session";
 
 const store = configureStore();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   restoreCSRF();
 
   window.csrfFetch = csrfFetch;
@@ -122,7 +122,7 @@ The `next state` in the console should look something like this:
 
 If there is an error or if the previous or next state does not look like this,
 then check your logic in your session reducer and your actions. If you are
-still having issues, scroll to check the example code below. 
+still having issues, scroll to check the example code below.
 
 After you finished testing, **commit your code**.
 
@@ -136,10 +136,10 @@ Here's an example for the `session` actions and reducer:
 
 ```js
 // frontend/src/store/session.js
-import { csrfFetch } from './csrf';
+import { csrfFetch } from "./csrf";
 
-const SET_USER = 'session/setUser';
-const REMOVE_USER = 'session/removeUser';
+const SET_USER = "session/setUser";
+const REMOVE_USER = "session/removeUser";
 
 const setUser = (user) => {
   return {
@@ -156,8 +156,8 @@ const removeUser = () => {
 
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
-  const response = await csrfFetch('/api/session', {
-    method: 'POST',
+  const response = await csrfFetch("/api/session", {
+    method: "POST",
     body: JSON.stringify({
       credential,
       password,
@@ -194,7 +194,7 @@ Here's an example for the `rootReducer` setup:
 ```js
 // frontend/src/store/index.js
 // ...
-import sessionReducer from './session';
+import sessionReducer from "./session";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -206,10 +206,12 @@ Here's an example for the login thunk action test in the browser's dev tools
 console:
 
 ```js
-window.store.dispatch(window.sessionActions.login({
-  credential: 'Demo-lition',
-  password: 'password'
-}));
+window.store.dispatch(
+  window.sessionActions.login({
+    credential: "Demo-lition",
+    password: "password",
+  })
+);
 ```
 
 ## `LoginFormPage` component
@@ -258,57 +260,57 @@ Here's an example for `LoginFormPage` component:
 
 ```js
 // frontend/src/components/LoginFormPage/index.js
-import React, { useState } from 'react';
-import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React, { useState } from "react";
+import * as sessionActions from "../../store/session";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 function LoginFormPage() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user);
-  const [credential, setCredential] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
+  const sessionUser = useSelector((state) => state.session.user);
+  const [credential, setCredential] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
-  if (sessionUser) return (
-    <Redirect to="/" />
-  );
+  if (sessionUser) return <Redirect to="/" />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
-    return dispatch(sessionActions.login({ credential, password }))
-      .catch(async (res) => {
+    setErrors({});
+    return dispatch(sessionActions.login({ credential, password })).catch(
+      async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
-      });
-  }
+      }
+    );
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
-      <label>
-        Username or Email
-        <input
-          type="text"
-          value={credential}
-          onChange={(e) => setCredential(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Password
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </label>
-      <button type="submit">Log In</button>
-    </form>
+    <>
+      <h1>Log In</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Username or Email
+          <input
+            type="text"
+            value={credential}
+            onChange={(e) => setCredential(e.target.value)}
+            required
+          />
+        </label>
+        <label>
+          Password
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </label>
+        {errors.credential && <p>{errors.credential}</p>}
+        <button type="submit">Log In</button>
+      </form>
+    </>
   );
 }
 
@@ -319,9 +321,9 @@ Here's an example for how `App.js` should look like now:
 
 ```js
 // frontend/src/App.js
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import LoginFormPage from './components/LoginFormPage';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import LoginFormPage from "./components/LoginFormPage";
 
 function App() {
   return (
@@ -344,7 +346,7 @@ file into the `frontend/src/components/LoginFormPage/index.js` file.
 ```js
 // frontend/src/components/LoginFormPage/index.js
 // ...
-import './LoginForm.css';
+import "./LoginForm.css";
 // ...
 ```
 
@@ -418,8 +420,8 @@ Here's an example of the restore session user thunk action:
 ```js
 // frontend/src/store/session.js
 // ...
-export const restoreUser = () => async dispatch => {
-  const response = await csrfFetch('/api/session');
+export const restoreUser = () => async (dispatch) => {
+  const response = await csrfFetch("/api/session");
   const data = await response.json();
   dispatch(setUser(data.user));
   return response;
@@ -450,12 +452,14 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  return isLoaded && (
-    <Switch>
-      <Route path="/login">
-        <LoginFormPage />
-      </Route>
-    </Switch>
+  return (
+    isLoaded && (
+      <Switch>
+        <Route path="/login">
+          <LoginFormPage />
+        </Route>
+      </Switch>
+    )
   );
 }
 
